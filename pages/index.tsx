@@ -87,11 +87,19 @@ export default function Home() {
   let abilities = pkmnData.abilities.map((abil) => {
     return (
       <Fragment key={abil.ability.name}>
-        <span className="text-lg">
-          {abil.is_hidden
-            ? `Hidden: ${abil.ability.name} `
-            : `Ability: ${abil.ability.name} `}
-        </span>
+        
+          {abil.is_hidden ? (
+            <div>
+              <span className="font-light">Hidden: </span> 
+              <span className="font-bold">{abil.ability.name}</span>
+            </div>
+          ) : (
+            <div>
+              <span className="font-light">Ability: </span>
+             <span className="font-bold">{abil.ability.name}</span>
+            </div>
+          )}
+        
       </Fragment>
     );
   });
@@ -101,9 +109,9 @@ export default function Home() {
       <Fragment key={typ.type.name}>
         {pkmnData.types.length > 1 &&
         pkmnData.types.indexOf(typ) !== pkmnData.types.length - 1 ? (
-          <span className="font-bold">{typ.type.name}, </span>
+          <span className="font-bold text-xl">{typ.type.name}, </span>
         ) : (
-          <span className="font-bold">{typ.type.name} </span>
+          <span className="font-bold text-xl">{typ.type.name} </span>
         )}
       </Fragment>
     );
@@ -158,12 +166,15 @@ export default function Home() {
           <h1 className="text-4xl font-bold">
             {pkmnData.name[0].toUpperCase() + pkmnData.name.slice(1)}
           </h1>
-          <h2 className="text-3xl">National Dex #{pkmnData.id}</h2>
-          {abilities}
-          <p>
-            <span className="font-light font-xl">Type: </span>
-          </p>
-          {types}
+          <h2 className="text-3xl font-light">National Dex #{pkmnData.id}</h2>
+
+          <div className="grid grid-cols-2 my-4">
+            <p>
+              <span className="font-light font-xl">Type: </span>
+              {types}
+            </p>
+            <div>{abilities}</div>
+          </div>
           <h5 className="text-xl">Base Stats</h5>
           {stats}
         </div>
